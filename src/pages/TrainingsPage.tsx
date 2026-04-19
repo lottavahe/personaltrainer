@@ -1,5 +1,12 @@
+import TrainingsList from "../components/TrainingsList";
+
 function TrainingsPage() {
-  return <h1>Trainings</h1>;
+  return (
+    <div>
+      <h2>Trainings</h2>
+      <TrainingsList />
+    </div>
+  );
 }
 
 export default TrainingsPage;

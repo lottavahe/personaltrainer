@@ -12,7 +12,9 @@ function App() {
       <Container maxWidth="lg">
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6">PERSONAL TRAINING  </Typography>
+            <Typography variant="h6" sx={{ mr: 2 }}>
+              PERSONAL TRAINING{" "}
+            </Typography>
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>
