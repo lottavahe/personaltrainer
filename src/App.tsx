@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 function App() {
   return (
     <>
+      <CssBaseline />
       <Container maxWidth="lg">
         <AppBar position="static">
           <Toolbar>
@@ -27,7 +28,6 @@ function App() {
           </Toolbar>
         </AppBar>
         <Outlet />
-        <CssBaseline />
       </Container>
     </>
   );

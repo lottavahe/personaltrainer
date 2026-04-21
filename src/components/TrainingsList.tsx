@@ -29,7 +29,7 @@ function TrainingsList() {
       .then((data) => setTrainings(data))
       .catch((err) => console.error(err));
   };
-  
+
   useEffect(() => {
     getTrainings();
   }, []);
@@ -42,6 +42,7 @@ function TrainingsList() {
         getRowId={(row) => row.id}
         autoPageSize
         disableRowSelectionOnClick
+        showToolbar
       />
     </div>
   );

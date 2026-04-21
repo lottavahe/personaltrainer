@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef } from "@mui/x-data-grid";
-import { fetchCustomers } from "../api";
-import type { Customer } from "../types";
+import { fetchCustomers, saveCustomer } from "../api";
+import type { Customer, CustomerInput } from "../types";
+import AddCustomer from "./AddCustomer";
 
 function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -18,7 +19,12 @@ function CustomersList() {
   const getCustomers = () => {
     fetchCustomers()
       .then((data) => setCustomers(data))
-      .catch((err) => console.error(err));
+      .catch((error) => console.error(error));
+  };
+  const handleAddCustomer = (customer: CustomerInput) => {
+    saveCustomer(customer)
+      .then(() => getCustomers())
+      .catch((error) => console.error(error));
   };
   useEffect(() => {
     getCustomers();
@@ -26,12 +32,14 @@ function CustomersList() {
 
   return (
     <div style={{ width: "95%", height: 500, margin: "auto" }}>
+      <AddCustomer handleAdd={handleAddCustomer} />
       <DataGrid
         rows={customers}
         columns={columns}
         getRowId={(row) => row._links.self.href}
         autoPageSize
         disableRowSelectionOnClick
+        showToolbar
       />
     </div>
   );
