@@ -38,3 +38,19 @@ export const saveCustomer = (customer: CustomerInput) => {
     return response.json();
   });
 };
+
+export const updateCustomer = (url: string, updatedCustomer: CustomerInput) => {
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedCustomer),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Error when updating customer");
+    }
+
+    return response.json();
+  });
+};

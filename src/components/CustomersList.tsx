@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { fetchCustomers, saveCustomer } from "../api";
+import { fetchCustomers, saveCustomer, updateCustomer } from "../api";
 import type { Customer, CustomerInput } from "../types";
 import AddCustomer from "./AddCustomer";
 import { Button } from "@mui/material";
+import EditCustomer from "./EditCustomer";
 
 function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [open, setOpen] = useState(false);
   const columns: GridColDef[] = [
-    { field: "firstname", headerName: "First name", width: 140 },
-    { field: "lastname", headerName: "Last name", width: 140 },
-    { field: "streetaddress", headerName: "Address", width: 180 },
-    { field: "postcode", headerName: "Postcode", width: 110 },
-    { field: "city", headerName: "City", width: 140 },
-    { field: "email", headerName: "Email", width: 150 },
-    { field: "phone", headerName: "Phone", width: 140 },
+    { field: "firstname", headerName: "First name", width: 130 },
+    { field: "lastname", headerName: "Last name", width: 150 },
+    { field: "streetaddress", headerName: "Address", width: 150 },
+    { field: "postcode", headerName: "Postcode", width: 90 },
+    { field: "city", headerName: "City", width: 130 },
+    { field: "email", headerName: "Email", width: 170 },
+    { field: "phone", headerName: "Phone", width: 130 },
     {
       field: "_links.self.href",
-      headerName: "Action",
+      headerName: "Actions",
       sortable: false,
       filterable: false,
+      width: 150,
       disableColumnMenu: true,
       renderCell: (params: GridRenderCellParams) => (
+        <>
         <Button
           color="error"
           size="small"
           onClick={() => handleDelete(params.row._links.self.href)}
         >
-          DELETE
+          Delete
         </Button>
+        <EditCustomer customer={params.row} handleUpdate={handleUpdate} />
+      </>
       ),
     },
   ];
@@ -61,6 +66,11 @@ function CustomersList() {
         .catch((error) => console.error(error));
     }
   };
+  const handleUpdate = (url: string, updatedCustomer: CustomerInput) => {
+  updateCustomer(url, updatedCustomer)
+    .then(() => getCustomers())
+    .catch((error) => console.error(error));
+};
   useEffect(() => {
     getCustomers();
   }, []);
