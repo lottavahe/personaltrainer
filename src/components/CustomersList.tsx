@@ -27,15 +27,15 @@ function CustomersList() {
       disableColumnMenu: true,
       renderCell: (params: GridRenderCellParams) => (
         <>
-        <Button
-          color="error"
-          size="small"
-          onClick={() => handleDelete(params.row._links.self.href)}
-        >
-          Delete
-        </Button>
-        <EditCustomer customer={params.row} handleUpdate={handleUpdate} />
-      </>
+          <Button
+            color="error"
+            size="small"
+            onClick={() => handleDelete(params.row._links.self.href)}
+          >
+            Delete
+          </Button>
+          <EditCustomer customer={params.row} handleUpdate={handleUpdate} />
+        </>
       ),
     },
   ];
@@ -67,10 +67,10 @@ function CustomersList() {
     }
   };
   const handleUpdate = (url: string, updatedCustomer: CustomerInput) => {
-  updateCustomer(url, updatedCustomer)
-    .then(() => getCustomers())
-    .catch((error) => console.error(error));
-};
+    updateCustomer(url, updatedCustomer)
+      .then(() => getCustomers())
+      .catch((error) => console.error(error));
+  };
   useEffect(() => {
     getCustomers();
   }, []);

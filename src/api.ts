@@ -1,4 +1,4 @@
-import type { Customer, CustomerInput, Training } from "./types";
+import type { Customer, CustomerInput, Training, TrainingInput } from "./types";
 
 export const fetchCustomers = () => {
   return fetch(import.meta.env.VITE_API_URL + "/customers")
@@ -51,6 +51,21 @@ export const updateCustomer = (url: string, updatedCustomer: CustomerInput) => {
       throw new Error("Error when updating customer");
     }
 
+    return response.json();
+  });
+};
+
+export const saveTraining = (training: TrainingInput) => {
+  return fetch(import.meta.env.VITE_API_URL + "/trainings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(training),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Error when saving training");
+    }
     return response.json();
   });
 };

@@ -29,11 +29,11 @@ export type CustomerInput = {
   phone: string;
 };
 
-export type CustomersResponse = {
-  _embedded: {
-    customers: Customer[];
-  };
-};
+//export type CustomersResponse = {
+  //_embedded: {
+  //  customers: Customer[];
+  //};
+//};
 
 export type Training = {
   id: number;
@@ -50,4 +50,11 @@ export type Training = {
     email: string;
     phone: string;
   };
+};
+
+export type TrainingInput = {
+  date: string;
+  duration: number;
+  activity: string;
+  customer: string;
 };
