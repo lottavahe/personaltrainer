@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import HomePage from './pages/HomePage.tsx'
+import CalendarPage from './pages/CalendarPage.tsx'
 import CustomersPage from './pages/CustomersPage.tsx'
 import TrainingsPage from './pages/TrainingsPage.tsx'
 
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <CalendarPage />,
       },
       {
         path: 'customers',

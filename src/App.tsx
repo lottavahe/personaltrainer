@@ -17,7 +17,7 @@ function App() {
               PERSONAL TRAINING{" "}
             </Typography>
             <Button color="inherit" component={Link} to="/">
-              Home
+              Calendar
             </Button>
             <Button color="inherit" component={Link} to="/customers">
               Customers
