@@ -31,6 +31,12 @@ export default function AddTraining(props: AddTrainingProps) {
   const handleSubmit = () => {
     props.handleAdd(training);
     handleClose();
+    setTraining({
+      date: "",
+      duration: 0,
+      activity: "",
+      customer: "",
+    });
   };
 
   return (

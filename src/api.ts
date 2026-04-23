@@ -1,5 +1,10 @@
 import type { Customer, CustomerInput, Training, TrainingInput } from "./types";
 
+// Trainingit haetaan /gettrainings-endpointista, jossa mukana tulee id.
+// Siksi trainingien update ja delete tehdään id:n perusteella.
+// Customerit taas haetaan /customers-endpointista, jossa mukana tulee _links.self.href,
+// joten customerien update ja delete tehdään url:n avulla.
+
 export const fetchCustomers = () => {
   return fetch(import.meta.env.VITE_API_URL + "/customers")
     .then(response => {
@@ -55,6 +60,16 @@ export const updateCustomer = (url: string, updatedCustomer: CustomerInput) => {
   });
 };
 
+export const deleteCustomer = (url: string) => {
+  return fetch(url, {
+    method: "DELETE",
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Error when deleting customer");
+    }
+  });
+};
+
 export const saveTraining = (training: TrainingInput) => {
   return fetch(import.meta.env.VITE_API_URL + "/trainings", {
     method: "POST",
@@ -67,5 +82,15 @@ export const saveTraining = (training: TrainingInput) => {
       throw new Error("Error when saving training");
     }
     return response.json();
+  });
+};
+
+export const deleteTraining = (id: number) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/trainings/${id}`, {
+    method: "DELETE",
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Error when deleting training");
+    }
   });
 };

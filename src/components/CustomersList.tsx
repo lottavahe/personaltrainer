@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { fetchCustomers, saveCustomer, updateCustomer } from "../api";
+import {
+  fetchCustomers,
+  saveCustomer,
+  updateCustomer,
+  deleteCustomer,
+} from "../api";
 import type { Customer, CustomerInput } from "../types";
 import AddCustomer from "./AddCustomer";
 import { Button } from "@mui/material";
@@ -50,15 +55,10 @@ function CustomersList() {
       .then(() => getCustomers())
       .catch((error) => console.error(error));
   };
+
   const handleDelete = (url: string) => {
     if (window.confirm("Are you sure?")) {
-      fetch(url, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error("Error when deleting customer");
-          return response.text();
-        })
+      deleteCustomer(url)
         .then(() => {
           getCustomers();
           setOpen(true);
@@ -66,6 +66,7 @@ function CustomersList() {
         .catch((error) => console.error(error));
     }
   };
+
   const handleUpdate = (url: string, updatedCustomer: CustomerInput) => {
     updateCustomer(url, updatedCustomer)
       .then(() => getCustomers())

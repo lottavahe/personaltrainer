@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef } from "@mui/x-data-grid";
+import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
-import { fetchTrainings, fetchCustomers, saveTraining } from "../api";
+import {
+  fetchTrainings,
+  fetchCustomers,
+  saveTraining,
+  deleteTraining,
+} from "../api";
 import type { Training, Customer, TrainingInput } from "../types";
 import AddTraining from "./AddTraining";
+import { Button } from "@mui/material";
+
+// Customerit tehdään linkkien avulla ja trainingit id:n avulla,
+// koska API palauttaa niiden tiedot eri muodossa.
 
 function TrainingsList() {
   const [trainings, setTrainings] = useState<Training[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
+
   const columns: GridColDef[] = [
     {
       field: "date",
@@ -22,8 +32,26 @@ function TrainingsList() {
       field: "customer",
       headerName: "Customer",
       width: 200,
-      valueGetter: (_value, row) =>
-        row.customer.firstname + " " + row.customer.lastname,
+      valueGetter: (_value, row) => {
+        return row.customer.firstname + " " + row.customer.lastname;
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      sortable: false,
+      filterable: false,
+      width: 110,
+      disableColumnMenu: true,
+      renderCell: (params: GridRenderCellParams) => (
+        <Button
+          color="error"
+          size="small"
+          onClick={() => handleDelete(params.row.id)}
+        >
+          Delete
+        </Button>
+      ),
     },
   ];
 
@@ -43,6 +71,14 @@ function TrainingsList() {
     saveTraining(training)
       .then(() => getTrainings())
       .catch((error) => console.error(error));
+  };
+
+  const handleDelete = (id: number) => {
+    if (window.confirm("Are you sure?")) {
+      deleteTraining(id)
+        .then(() => getTrainings())
+        .catch((error) => console.error(error));
+    }
   };
 
   useEffect(() => {
