@@ -86,6 +86,23 @@ function CustomersList() {
         autoPageSize
         disableRowSelectionOnClick
         showToolbar
+        slotProps={{
+          toolbar: {
+            csvOptions: {
+              fileName: "customers",
+              utf8WithBom: true,
+              fields: [
+                "firstname",
+                "lastname",
+                "streetaddress",
+                "postcode",
+                "city",
+                "email",
+                "phone",
+              ],
+            },
+          },
+        }}
       />
     </div>
   );
