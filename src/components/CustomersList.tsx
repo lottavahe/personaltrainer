@@ -14,7 +14,7 @@ import EditCustomer from "./EditCustomer";
 
 function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
   const columns: GridColDef[] = [
     { field: "firstname", headerName: "First name", width: 130 },
     { field: "lastname", headerName: "Last name", width: 150 },
