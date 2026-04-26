@@ -58,3 +58,10 @@ export type TrainingInput = {
   activity: string;
   customer: string;
 };
+
+export type CalendarEvent = {
+  id: number | string;
+  title: string;
+  start: Date;
+  end: Date;
+};
